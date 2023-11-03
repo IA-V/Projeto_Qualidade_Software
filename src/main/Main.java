@@ -10,13 +10,107 @@ import modelos.Aluno;
 
 public class Main {
 	
+	public static int inicializar(int qtd) { // Definir quantidade de alunos a serem cadastrados
+		int qtdAlunos = qtd;
+		System.out.println("Quanto alunos serão cadastrados? (Máximo de 10 alunos)");
+				
+		if (qtdAlunos > 10) {
+			System.out.println("Máximo de 10 alunos!");
+		} else if(qtdAlunos <= 0){
+			System.out.println("A quantidade deve ser um valor maior que 0!");
+		} else {
+			System.out.println("Quantidade definida com sucesso!");
+			return qtdAlunos;
+		}
+		
+		return -1; // Caso a quantidade de alunos não esteja de acordo com a especificação do programa
+	}
+	
+	public static boolean verificarMedia(Aluno aluno) { // Informa se a média foi recalculada ou não
+		if (aluno.getMedia() < 7) {
+			// aluno.mediaQuartaNota(nota4);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public static Aluno criarAluno(String nome, double nota1, double nota2, double nota3) {
+		if (nota1 < 0 || nota1 > 10) {
+			return new Aluno("-1", 0, 0, 0);
+		}
+		
+		if (nota2 < 0 || nota2 > 10) {
+			return new Aluno("-1", 0, 0, 0);
+		}
+		
+		if (nota3 < 0 || nota3 > 10) {
+			return new Aluno("-1", 0, 0, 0);
+		}
+		
+		Aluno aluno = new Aluno(nome, nota1, nota2, nota3);
+		
+		return aluno;
+	}
+	
 	public static void main(String[] args) {
 		int op = 1;
 		List<Aluno> alunos = new ArrayList<Aluno>();
 		Aluno alunoAtual = new Aluno("0", 0, 0, 0);
-		int qtdAlunos = 0;
 		
-		do{
+		int qtdAlunos = 0;		
+		Scanner leitor = new Scanner(System.in);
+		
+		while(inicializar(leitor.nextInt()) >= 1) {
+			qtdAlunos = leitor.nextInt();
+			inicializar(qtdAlunos);
+		}
+		
+		for (int i = 0; i < qtdAlunos; i++) {
+			double nota1;
+			double nota2;
+			double nota3;
+			String nome;
+				
+			Aluno aluno = new Aluno("-1", 0, 0, 0);
+				
+			while(aluno.getNome().equals("-1")) {
+				System.out.println("Digite o nome do aluno: ");
+				nome = leitor.next();
+				
+				System.out.println("\nDigite nota 1: ");
+				nota1 = leitor.nextDouble();
+				/**while (nota1 < 0 || nota1 > 10) {
+					System.out.println("A nota deve estar entre 0 e 10!\n");
+					nota1 = leitor.nextDouble();
+				}*/
+				
+				System.out.println("\nDigite nota 2: ");
+				nota2 = leitor.nextDouble();
+				/*while (nota2 < 0 || nota2 > 10) {
+					System.out.println("A nota deve estar entre 0 e 10!\n");
+					nota2 = leitor.nextDouble();
+				}*/
+				
+				System.out.println("\nDigite nota 3: ");
+				nota3 = leitor.nextDouble();
+				/*while (nota3 < 0 || nota3 > 10) {
+					System.out.println("A nota deve estar entre 0 e 10!\n");
+					nota3 = leitor.nextDouble();
+				}*/
+				aluno = criarAluno(nome, nota1, nota2, nota3);
+			}
+			alunos.add(aluno);
+			
+			if (verificarMedia(aluno)) {
+				System.out.println("\nDigite a nota 4: ");
+				double nota4 = leitor.nextDouble();
+				
+				aluno.mediaQuartaNota(nota4);
+			}
+		}
+		
+		/* do{
 			Scanner leitor = new Scanner(System.in);
 			if (qtdAlunos <= 0 || qtdAlunos > 10) {
 				System.out.println("Quanto alunos serão cadastrados? (Máximo de 10 alunos)");
@@ -151,7 +245,7 @@ public class Main {
 				
 			}
 			
-		} while(op != 0);
+		} while(op != 0); */
 			
 	}
 
