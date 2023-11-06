@@ -26,7 +26,7 @@ public class Main {
 		return -1; // Caso a quantidade de alunos não esteja de acordo com a especificação do programa
 	}
 	
-	public static boolean verificarMedia(Aluno aluno) { // Informa se a média foi recalculada ou não
+	public static boolean verificarMedia(Aluno aluno) { // Informa se a média precisa ser recalculada ou não
 		if (aluno.getMedia() < 7) {
 			// aluno.mediaQuartaNota(nota4);
 			return true;
